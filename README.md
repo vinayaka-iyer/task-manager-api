@@ -115,4 +115,18 @@ project/
     }
     ```
 
+## Versioning and Updates
+
+### Version 1.2
+- Added persistent MongoDB database integration using Mongoose.
+
+### Version 1.1
+- Added validation for task fields.
+- Implemented a centralized error-handling middleware to standardize error responses.
+- Introduced a 404 handler for undefined routes. 
+
+### Version 1.0
+Initial version of the API with the following features:
+- CRUD operations for tasks (GET, POST, PUT, DELETE).
+- Basic in-memory data storage.
 ---

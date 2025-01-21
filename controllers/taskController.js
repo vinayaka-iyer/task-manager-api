@@ -30,7 +30,7 @@ const createTask = (req, res, next) => {
 		title,
 		description,
 		status: 'Pending',
-		created_at: new Date(),
+		created_at: new Date().toLocaleString(),
 		updated_at: null,
 	};
 	tasks.push(newTask);
@@ -49,7 +49,7 @@ const updateTask = (req, res, next) => {
 	if (title) task.title = title;
 	if (description) task.description = description;
 	if (status) task.status = status;
-	task.updated_at = new Date();
+	task.updated_at = new Date().toLocaleString();
 	res.json(task);
 };
 
@@ -62,7 +62,7 @@ const deleteTask = (req, res, next) => {
 		return next(error);
 	}
 	tasks.splice(task.id, 1);
-	res.status(201).json({ message: 'Task deleted.' });
+	res.status(201).json({ message: 'Task deleted successfully.' });
 };
 
 module.exports = { getTasks, getTaskById, createTask, updateTask, deleteTask };

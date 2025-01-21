@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose')
 const taskRoutes = require('./routes/taskRoutes');
+const authRoutes = require('./routes/auth');
 const errorMiddleware = require('./middlewares/errorMiddleware');
 
 const app = express();
@@ -18,6 +19,7 @@ mongoose.connect('mongodb+srv://vinayakaiyer:vinayaka999@cluster0.fgiui.mongodb.
 
 // Routes
 app.use('/api/tasks', taskRoutes);
+app.use('/api/auth', authRoutes)
 
 // 404 Handler for undefine routes
 app.use((req, res, next) => {

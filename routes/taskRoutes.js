@@ -8,7 +8,11 @@ const {
 	deleteTask,
 } = require('../controllers/taskController');
 
+const authenticate = require('../middlewares/auth');
+
 const router = express.Router();
+// Protect all routes with authentication middleware
+router.use(authenticate);
 
 // Task Routes
 router.get('/', getTasks); // GET all Tasks

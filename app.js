@@ -1,9 +1,20 @@
 const express = require('express');
+const mongoose = require('mongoose')
 const taskRoutes = require('./routes/taskRoutes');
 const errorMiddleware = require('./middlewares/errorMiddleware');
 
 const app = express();
 app.use(express.json());
+
+// Connect to db
+mongoose.connect('mongodb+srv://vinayakaiyer:vinayaka999@cluster0.fgiui.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', {
+	useNewUrlParser: true,
+	useUnifiedTopology: true,
+  }).then(() => {
+    console.log('Connected to MongoDB');
+}).catch((error) => {
+    console.error('Error connecting to MongoDB:', error);
+});
 
 // Routes
 app.use('/api/tasks', taskRoutes);

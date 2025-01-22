@@ -3,8 +3,12 @@ const mongoose = require('mongoose')
 const taskRoutes = require('./routes/taskRoutes');
 const authRoutes = require('./routes/authRoutes');
 const errorMiddleware = require('./middlewares/errorMiddleware');
+const cors = require("cors");
+
 
 const app = express();
+
+app.use(cors());
 app.use(express.json());
 
 // Connect to db

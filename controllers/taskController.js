@@ -26,7 +26,7 @@ const getTasks = async (req, res) => {
 // Get task by ID
 const getTaskById = async (req, res, next) => {
 	const userId = req.user.id;
-	const {id} = req.params.id
+	const {id} = req.params
     const task = await Task.findById({user: userId, _id: id});
 	if (!task) {
 		const error = new Error('Task not found.');
@@ -53,7 +53,7 @@ const createTask = async (req, res, next) => {
 // Update a task
 const updateTask = async (req, res, next) => {
 	const userId = req.user.id;
-	const {id} = req.params.id
+	const {id} = req.params
 	const updateFields = req.body;
 	updateFields.updated_at = Date.now()
 	const task = await Task.findByIdAndUpdate({user: userId,_id: id},
@@ -71,7 +71,7 @@ const updateTask = async (req, res, next) => {
 // Delete a task
 const deleteTask = async (req, res, next) => {
 	const userId = req.user.id;
-	const {id} = req.params.id
+	const {id} = req.params
 	const task = await Task.findByIdAndDelete({user: userId,_id: id})
 	if (!task) {
 		const error = new Error('Task not found.');

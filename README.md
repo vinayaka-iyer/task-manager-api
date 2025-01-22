@@ -9,12 +9,16 @@ project/
 ├── app.js
 ├── routes/
 │   └── taskRoutes.js
+│   └── authRoutes.js
 ├── controllers/
 │   └── taskController.js
+│   └── authController.js
 ├── middlewares/
 │   └── errorMiddleware.js
+│   └── auth.js
 └── models/
-    └── taskModel.js
+    └── Task.js
+	└── User.js
 
 ```
 
@@ -24,7 +28,7 @@ project/
 
 #### **1. Fetch All Tasks**
 
--   **Request**: `GET /api/tasks?page=1&limit=10`
+-   **Request**: `GET /api/tasks?page=1&limit=4`
 -   **Response**:
     ```json
 	{

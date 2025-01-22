@@ -4,9 +4,19 @@ const Task = require('../models/Task');
 // Get all tasks
 const getTasks = async (req, res) => {
 	const userId = req.user.id;
+	const page = parseInt(req.query.page) || 1
+	const limit = parseInt(req.query.limit) || 10
+	const startIndex = (page - 1) * limit
+	const total = await Task.countDocuments({user: userId})
 	try {
-		const tasks = await Task.find({user: userId})
-		res.status(200).json(tasks)
+		const tasks = await Task.find({user: userId}).skip(startIndex).limit(limit)
+		res.status(200).json({
+			page,
+			limit,
+			total,
+			pages: Math.ceil(total / limit),
+			tasks
+		});
 	} catch (error) {
 		res.status(500).json({message: error.message})
 

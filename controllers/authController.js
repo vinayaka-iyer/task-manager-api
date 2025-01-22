@@ -1,13 +1,9 @@
-const express = require('express')
-const jwt = require('jsonwebtoken')
-const bcrypt = require('bcrypt')
 const User = require('../models/User')
-
-const router = express.Router()
+const jwt = require('jsonwebtoken')
 const JWT_SECRET = 'my_jwt_secret'
 
-// Register
-router.post('/register', async (req, res) => {
+
+const register = async (req, res) => {
     const {username, password} = req.body
     if (!username || !password){
         return res.status(400).json({
@@ -26,10 +22,9 @@ router.post('/register', async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: 'Server Error', error: error.message})
     }
-})
+}
 
-// Login
-router.post('/login', async (req, res) => {
+const login = async (req, res) => {
     const {username, password} = req.body
     if (!username || !password){
         return res.status(400).json({
@@ -57,6 +52,6 @@ router.post('/login', async (req, res) => {
     } catch (error) {
         res.status(500).json({message: 'Server Error', error: error.message})
     }
-})
+}
 
-module.exports = router
+module.exports = {login, register}

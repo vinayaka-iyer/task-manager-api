@@ -39,13 +39,13 @@ const getTaskById = async (req, res, next) => {
 // Create a new task
 const createTask = async (req, res, next) => {
 	const userId = req.user.id
-	const { title, description } = req.body;
-	if (!title || !description) {
-		const error = new Error('Title and Description are required.');
+	const { title, description, status} = req.body;
+	if (!title) {
+		const error = new Error('Title is required.');
 		error.status = 400;
 		return next(error);
 	}
-	const task = new Task({title, description, user: userId})
+	const task = new Task({title, description, status, user: userId})
 	await task.save()
 	res.status(201).json(task);
 };

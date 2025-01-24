@@ -18,7 +18,7 @@ project/
 │   └── auth.js
 └── models/
     └── Task.js
-	└── User.js
+    └── User.js
 
 ```
 

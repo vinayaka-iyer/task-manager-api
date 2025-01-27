@@ -7,8 +7,9 @@ const getTasks = async (req, res) => {
 	const page = parseInt(req.query.page) || 1
 	const limit = parseInt(req.query.limit) || 10
 	const startIndex = (page - 1) * limit
-	const total = await Task.countDocuments({user: userId})
+	
 	try {
+		const total = await Task.countDocuments({user: userId})
 		const tasks = await Task.find({user: userId}).skip(startIndex).limit(limit)
 		res.status(200).json({
 			page,

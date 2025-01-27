@@ -9,7 +9,7 @@ const cors = require("cors");
 const app = express();
 
 app.use(cors({
-	origin: 'http://localhost:5173',
+	origin: ["http://localhost:5173","https://task-manager-frontend-jet-nu.vercel.app"],
 	credentials: true, // Allow credentials like cookies or HTTP authentication
 }));
 app.use(express.json());

@@ -9,16 +9,16 @@ const cors = require("cors");
 const app = express();
 
 app.use(cors({
-	origin: ["http://localhost:5173","https://task-manager-frontend-jet-nu.vercel.app"],
+	origin: ["http://localhost:5173","https://task-manager-frontend-jet-nu.vercel.app", "https://task-manager-eight-olive.vercel.app"],
 	credentials: true, // Allow credentials like cookies or HTTP authentication
 }));
 app.use(express.json());
 
 // Connect to db
-mongoose.connect('mongodb+srv://vinayakaiyer:vinayaka999@cluster0.fgiui.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', {
-	useNewUrlParser: true,
-	useUnifiedTopology: true,
-  }).then(() => {
+mongoose.connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+}).then(() => {
     console.log('Connected to MongoDB');
 }).catch((error) => {
     console.error('Error connecting to MongoDB:', error);
@@ -40,6 +40,7 @@ app.use((req, res, next) => {
 // Global error handler
 app.use(errorMiddleware);
 
-app.listen(process.env.PORT || 8000, () => {
-	console.log('Listening on port 8000...');
+const PORT = process.env.PORT || 8000;
+app.listen(PORT, () => {
+    console.log(`Listening on port ${PORT}...`);
 });

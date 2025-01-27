@@ -1,14 +1,17 @@
 const express = require('express');
 const mongoose = require('mongoose')
-const taskRoutes = require('./routes/taskRoutes');
-const authRoutes = require('./routes/authRoutes');
-const errorMiddleware = require('./middlewares/errorMiddleware');
+const taskRoutes = require('../routes/taskRoutes');
+const authRoutes = require('../routes/authRoutes');
+const errorMiddleware = require('../middlewares/errorMiddleware');
 const cors = require("cors");
 
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+	origin: 'http://localhost:5173',
+	credentials: true, // Allow credentials like cookies or HTTP authentication
+}));
 app.use(express.json());
 
 // Connect to db

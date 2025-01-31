@@ -16,26 +16,24 @@ app.use(
       "https://task-manager-eight-olive.vercel.app",
       "https://event-manager-rosy.vercel.app",
     ],
-    credentials: true, // Allow credentials like cookies or HTTP authentication
+    credentials: true,
   })
 );
 app.use(express.json());
 
-// Connect to db
-mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => {
-    console.log("Connected to MongoDB");
-  })
-  .catch((error) => {
-    console.error("Error connecting to MongoDB:", error);
-  });
+// Connect to db only if not in test mode
+if (process.env.NODE_ENV !== "test") {
+  mongoose
+    .connect(process.env.MONGO_URI)
+    .then(() => console.log("Connected to MongoDB"))
+    .catch((error) => console.error("Error connecting to MongoDB:", error));
+}
 
 // Routes
 app.use("/api/tasks", taskRoutes);
 app.use("/api/auth", authRoutes);
 
-// 404 Handler for undefine routes
+// 404 Handler for undefined routes
 app.use((req, res, next) => {
   res.status(404).json({
     error: "Route not found",
@@ -47,7 +45,13 @@ app.use((req, res, next) => {
 // Global error handler
 app.use(errorMiddleware);
 
-const PORT = process.env.PORT || 8000;
-app.listen(PORT, () => {
-  console.log(`Listening on port ${PORT}...`);
-});
+// Start server only if not in test mode
+if (process.env.NODE_ENV !== "test") {
+  const PORT = process.env.PORT || 8000;
+  app.listen(PORT, () => {
+    console.log(`Listening on port ${PORT}...`);
+  });
+}
+
+// Export app for testing
+module.exports = app;
